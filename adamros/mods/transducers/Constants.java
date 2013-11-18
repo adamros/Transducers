@@ -4,7 +4,7 @@ public final class Constants
 {
     public static final String modId = "TransducersIC2";
     public static final String modName = "Transducers";
-    public static final String modVersion = "1.0.1.371";
+    public static final String modVersion = "1.0.1.398";
 
     public static final String commonProxy = "adamros.mods.transducers.proxy.CommonProxy";
     public static final String clientProxy = "adamros.mods.transducers.proxy.ClientProxy";

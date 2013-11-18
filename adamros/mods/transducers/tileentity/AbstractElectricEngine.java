@@ -551,11 +551,12 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
 
     public boolean changeOrientation(boolean toPipe)
     {
-        for (ForgeDirection i : ForgeDirection.VALID_DIRECTIONS)
-        {
+    	for (int n = this.orientation.ordinal() + 1; n <= orientation.ordinal() + 6; ++n) {
+            ForgeDirection i = ForgeDirection.VALID_DIRECTIONS[n % 6];
+        	
             TileEntity tile = this.tilesOnSides[i.ordinal()];
 
-            if ((!toPipe && tile instanceof IPipeTile) || ((tile instanceof IPowerReceptor) && ((IPowerReceptor)tile).getPowerReceiver(this.orientation) != null))
+            if ((!toPipe || tile instanceof IPipeTile) && ((tile instanceof IPowerReceptor) && ((IPowerReceptor)tile).getPowerReceiver(this.orientation) != null))
             {
                 this.orientation = i;
 
