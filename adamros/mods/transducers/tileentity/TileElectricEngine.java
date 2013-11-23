@@ -167,23 +167,23 @@ public class TileElectricEngine extends AbstractElectricEngine /*implements IInv
         switch (this.tier)
         {
             case 0:
-                tmp = 32;
+                tmp = 64;
                 break;
 
             case 1:
-                tmp = 128;
-                break;
-
-            case 2:
                 tmp = 512;
                 break;
 
-            case 3:
+            case 2:
                 tmp = 2048;
                 break;
 
+            case 3:
+                tmp = 2048; // I have no clue what this should be...
+                break;
+
             default:
-                tmp = 32;
+                tmp = 64;
                 break;
         }
 
