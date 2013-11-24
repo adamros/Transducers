@@ -171,11 +171,11 @@ public class TileElectricEngine extends AbstractElectricEngine /*implements IInv
                 break;
 
             case 1:
-                tmp = 512;
+                tmp = 128;
                 break;
 
             case 2:
-                tmp = 2048;
+                tmp = 512;
                 break;
 
             case 3:
