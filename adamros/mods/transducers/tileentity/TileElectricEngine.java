@@ -15,15 +15,24 @@ public class TileElectricEngine extends AbstractElectricEngine /*implements IInv
 
     public TileElectricEngine()
     {
-        this.powerHandler.configure(minEnergyReceived(), maxEnergyReceived(), 1, 0);
-        this.powerHandler.configurePowerPerdition(1, 100);
     }
 
     public TileElectricEngine(short tier)
     {
         this.tier = tier;
+    }
+
+    private void initPowerHandler()
+    {
         this.powerHandler.configure(minEnergyReceived(), maxEnergyReceived(), 1, 0);
         this.powerHandler.configurePowerPerdition(1, 100);
+    }
+
+    @Override
+    public void validate()
+    {
+        super.validate();
+        initPowerHandler();
 
         switch (tier)
         {
@@ -237,8 +246,7 @@ public class TileElectricEngine extends AbstractElectricEngine /*implements IInv
 
     /*@Override
     public int getSizeInventory() {
-    	// TODO Auto-generated method stub
-    	return 0;
+    	return 1;
     }
 
     @Override
@@ -279,8 +287,7 @@ public class TileElectricEngine extends AbstractElectricEngine /*implements IInv
 
     @Override
     public int getInventoryStackLimit() {
-    	// TODO Auto-generated method stub
-    	return 0;
+    	return 64;
     }
 
     @Override

@@ -51,10 +51,10 @@ public class Transducers
 
     public static boolean gregtechSupport;
 
-    /*public static TriggerElectricEngineHeat lowHeatTrigger;
+    public static TriggerElectricEngineHeat lowHeatTrigger;
     public static TriggerElectricEngineHeat mediumHeatTrigger;
     public static TriggerElectricEngineHeat highHeatTrigger;
-    public static TriggerElectricEngineHeat veryHighHeatTrigger;*/
+    public static TriggerElectricEngineHeat veryHighHeatTrigger;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -71,63 +71,74 @@ public class Transducers
         tabTransducers = new CreativeTabTransducers();
         blockPTransducer = new BlockPneumaticTransducer(configuration.pneumaticGeneratorId);
         blockElectricEngine = new BlockElectricEngine(configuration.engineId);
+        proxy.registerSpecials();
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-        this.proxy.registerSpecials();
-        this.proxy.registerRenderers();
         GameRegistry.registerBlock(blockPTransducer, ItemPneumaticTransducer.class, "pneumaticTransducer");
         GameRegistry.registerBlock(blockElectricEngine, ItemElectricEngine.class, "electricEngine");
         GameRegistry.registerTileEntity(TilePTransducer.class, "pneumaticTransducer");
         GameRegistry.registerTileEntity(TileElectricEngine.class, "electricEngine");
+        proxy.registerRenderers();
+        boolean tmp = false;
 
-        if (configuration.gregtechSupport)
+        try
         {
-            FMLLog.getLogger().severe("[Transducers] Gregtech support is still incomplete. Will continue loading with standard recipes.");
+            Class cls = Class.forName("gregtechmod.api.GregTech_API");
+
+            if (cls.getDeclaredField("VERSION").get(null) != null)
+            {
+                if (configuration.gregtechSupport)
+                {
+                    FMLLog.getLogger().info("[Transducers] GregTech mod found - using GregTech items in recipes.");
+                    gregtechSupport = true;
+                    tmp = true;
+                }
+                else
+                {
+                    FMLLog.getLogger().info("[Transducers] GregTech mod found, but recipes with GregTech items were disabled in configuration.");
+                    gregtechSupport = false;
+                }
+            }
+        }
+        catch (ClassNotFoundException e)
+        {
+            tmp = false;
+        }
+        catch (IllegalArgumentException e)
+        {
+            tmp = false;
+        }
+        catch (IllegalAccessException e)
+        {
+            tmp = false;
+        }
+        catch (NoSuchFieldException e)
+        {
+            tmp = false;
+        }
+        catch (SecurityException e)
+        {
+            tmp = false;
         }
 
-        /*boolean tmp = false;
-
-        try {
-        	Class cls = Class.forName("gregtechmod.api.GregTech_API");
-
-        	if (cls.getDeclaredField("VERSION").get(null) != null)
-        	{
-        		if (configuration.gregtechSupport)
-        		{
-        			FMLLog.getLogger().info("[Transducers] GregTech mod found - using GregTech items in recipes.");
-        			gregtechSupport = true;
-        		}
-        		else {
-        			FMLLog.getLogger().info("[Transducers] GregTech mod found, but recipes with GregTech items were disabled in configuration.");
-        			gregtechSupport = false;
-        		}
-        	}
-        } catch (ClassNotFoundException e) {
-        	tmp = false;
-        } catch (IllegalArgumentException e) {
-        	tmp = false;
-        } catch (IllegalAccessException e) {
-        	tmp = false;
-        } catch (NoSuchFieldException e) {
-        	tmp = false;
-        } catch (SecurityException e) {
-        	tmp = false;
+        if (!tmp)
+        {
+            FMLLog.getLogger().info("[Transducers] GregTech mod not found - using default recipes.");
+            gregtechSupport = false;
+            proxy.registerRecipes();
+        }
+        else
+        {
+            proxy.registerGregtechRecipes();
         }
 
-        if (tmp)
-        {
-        	FMLLog.getLogger().info("[Transducers] GregTech mod not found - using default recipes.");
-        	gregtechSupport = false;
-        }*/
-        this.proxy.registerTranslations();
-        this.proxy.registerRecipes();
-        /*lowHeatTrigger = new TriggerElectricEngineHeat(0.2F);
-        mediumHeatTrigger = new TriggerElectricEngineHeat(0.6F);
-        highHeatTrigger = new TriggerElectricEngineHeat(0.9F);
-        veryHighHeatTrigger = new TriggerElectricEngineHeat(0.91F);*/
+        //lowHeatTrigger = new TriggerElectricEngineHeat(1, 0.2F, "transducers.electricengine.heat.cold");
+        //mediumHeatTrigger = new TriggerElectricEngineHeat(2, 0.6F, "transducers.electricengine.heat.warm");
+        //highHeatTrigger = new TriggerElectricEngineHeat(3, 0.9F, "transducers.electricengine.heat.hot");
+        //veryHighHeatTrigger = new TriggerElectricEngineHeat(4, 0.91F, "transducers.electricengine.heat.overheat");
     }
 
     public static class IconProvider implements IIconProvider

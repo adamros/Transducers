@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 import adamros.mods.transducers.Transducers;
 import adamros.mods.transducers.tileentity.TileElectricEngine;
@@ -18,26 +19,30 @@ import buildcraft.api.gates.TriggerParameter;
 public class TriggerElectricEngineHeat implements ITrigger
 {
     private float heat = 0.0F;
+    private String uniqueTag;
+    private int legacyId;
 
     @SideOnly(Side.CLIENT)
     private Icon iconBlue, iconGreen, iconYellow, iconRed;
 
-    public TriggerElectricEngineHeat(float engineHeat)
+    public TriggerElectricEngineHeat(int id, float engineHeat, String tag)
     {
         this.heat = engineHeat;
+        this.uniqueTag = tag;
+        this.legacyId = id;
         ActionManager.registerTrigger(this);
     }
 
     @Override
     public int getLegacyId()
     {
-        return 98;
+        return legacyId;
     }
 
     @Override
     public String getUniqueTag()
     {
-        return "trigger.electricengine.heat";
+        return uniqueTag;
     }
 
     @Override
@@ -84,26 +89,30 @@ public class TriggerElectricEngineHeat implements ITrigger
     @Override
     public String getDescription()
     {
+        String name;
+
         if (heat <= 0.2F)
         {
-            return "Low temperature";
+            name = "trigger.transducers.electricengine.heat.cold";
         }
         else if (heat > 0.2F && heat <= 0.6F)
         {
-            return "Medium temperature";
+            name = "trigger.transducers.electricengine.heat.warm";
         }
         else if (heat > 0.6F && heat <= 0.9F)
         {
-            return "High temperature";
+            name = "trigger.transducers.electricengine.heat.hot";
         }
         else if (heat > 0.9)
         {
-            return "Very high temperature";
+            name = "trigger.transducers.electricengine.heat.overheat";
         }
         else
         {
-            return "Unknown";
+            name = "trigger.transducers.electricengine.heat.cold";
         }
+
+        return StatCollector.translateToLocal(name).trim();
     }
 
     @Override
@@ -140,9 +149,10 @@ public class TriggerElectricEngineHeat implements ITrigger
         return new TriggerParameter();
     }
 
-	@Override
-	public boolean requiresParameter() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean requiresParameter()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

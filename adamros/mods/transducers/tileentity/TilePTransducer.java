@@ -54,37 +54,11 @@ public class TilePTransducer extends TileBase implements IEnergySource, IPowerRe
 
     public TilePTransducer()
     {
-        initPowerHandler();
     }
 
     public TilePTransducer(int tier)
     {
         this.tier = tier;
-
-        switch (tier)
-        {
-            case 0:
-                this.maxEnergyOutput = 32D;
-                break;
-
-            case 1:
-                this.maxEnergyOutput = 128D;
-                break;
-
-            case 2:
-                this.maxEnergyOutput = 512D;
-                break;
-
-            case 3:
-                this.maxEnergyOutput = 2048D;
-                break;
-
-            default:
-                this.maxEnergyOutput = 32D;
-                break;
-        }
-
-        initPowerHandler();
     }
 
     private void initPowerHandler()
@@ -157,6 +131,30 @@ public class TilePTransducer extends TileBase implements IEnergySource, IPowerRe
     {
         super.validate();
         MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+        initPowerHandler();
+
+        switch (tier)
+        {
+            case 0:
+                this.maxEnergyOutput = 32D;
+                break;
+
+            case 1:
+                this.maxEnergyOutput = 128D;
+                break;
+
+            case 2:
+                this.maxEnergyOutput = 512D;
+                break;
+
+            case 3:
+                this.maxEnergyOutput = 2048D;
+                break;
+
+            default:
+                this.maxEnergyOutput = 32D;
+                break;
+        }
     }
 
     @Override

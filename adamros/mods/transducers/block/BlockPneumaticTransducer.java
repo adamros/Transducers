@@ -174,6 +174,11 @@ public class BlockPneumaticTransducer extends BlockContainer
     }
 
     @Override
+    public void randomDisplayTick(World world, int i, int j, int k, Random random)
+    {
+    }
+
+    @Override
     public boolean canProvidePower()
     {
         return false;

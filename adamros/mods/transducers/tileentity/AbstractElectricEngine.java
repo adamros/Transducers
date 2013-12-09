@@ -113,11 +113,6 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
 
     public abstract float getCurrentOutput();
 
-    public float maxEnergyExtracted()
-    {
-        return this.getCurrentOutput();
-    }
-
     public float getEngineSpeed()
     {
         return 0.36F * (this.heat / 180);
@@ -142,9 +137,13 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
             if (((IPowerReceptor)tile).getPowerReceiver(this.orientation) != null)
             {
                 PowerReceiver receptor = ((IPowerReceptor)tile).getPowerReceiver(this.orientation);
-                receptor.receiveEnergy(PowerHandler.Type.ENGINE, this.getCurrentOutput(), this.orientation.getOpposite());
-                currentOutput = extractEnergy(0, this.getCurrentOutput(), true);
-                //TODO: Dynamic energy output
+                float needed = extractEnergy(receptor.getMinEnergyReceived(), receptor.getMaxEnergyReceived(), false);
+
+                if (needed > 0)
+                {
+                    currentOutput = receptor.receiveEnergy(PowerHandler.Type.ENGINE, needed, this.orientation.getOpposite());
+                    extractEnergy(receptor.getMinEnergyReceived(), currentOutput, true);
+                }
             }
         }
     }
@@ -158,9 +157,9 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
 
         float actualMax;
 
-        if (max > maxEnergyExtracted())
+        if (max > getCurrentOutput())
         {
-            actualMax = maxEnergyExtracted();
+            actualMax = getCurrentOutput();
         }
         else
         {
@@ -307,7 +306,7 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
 
             getPower();
 
-            if (packetRateLimit.markTimeIfDelay(worldObj, 10))
+            if (packetRateLimit.markTimeIfDelay(worldObj, 15))
             {
                 this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             }
@@ -448,15 +447,12 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
     @Override
     public LinkedList<ITrigger> getTriggers()
     {
-        /*LinkedList<ITrigger> triggers = new LinkedList<ITrigger>();
-
+        LinkedList<ITrigger> triggers = new LinkedList<ITrigger>();
         triggers.add(Transducers.instance.lowHeatTrigger);
         triggers.add(Transducers.instance.mediumHeatTrigger);
         triggers.add(Transducers.instance.highHeatTrigger);
         triggers.add(Transducers.instance.veryHighHeatTrigger);
-
-        return triggers;*/
-        return null;
+        return triggers;
     }
 
     @Override
@@ -493,11 +489,8 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
     protected void addCustomDescriptionData(DataOutputStream data) throws IOException
     {
         data.writeInt(this.orientation.ordinal());
-        //data.writeFloat(this.heat);
         data.writeFloat(this.energy);
-        //data.writeFloat(this.progress);
         data.writeBoolean(this.isWorking);
-        //data.writeFloat(this.progressPart);
     }
 
     @Override
@@ -551,9 +544,9 @@ public abstract class AbstractElectricEngine extends TileBase implements IPowerE
 
     public boolean changeOrientation(boolean toPipe)
     {
-    	for (int n = this.orientation.ordinal() + 1; n <= orientation.ordinal() + 6; ++n) {
+        for (int n = this.orientation.ordinal() + 1; n <= orientation.ordinal() + 6; ++n)
+        {
             ForgeDirection i = ForgeDirection.VALID_DIRECTIONS[n % 6];
-        	
             TileEntity tile = this.tilesOnSides[i.ordinal()];
 
             if ((!toPipe || tile instanceof IPipeTile) && ((tile instanceof IPowerReceptor) && ((IPowerReceptor)tile).getPowerReceiver(this.orientation) != null))

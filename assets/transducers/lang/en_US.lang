@@ -1,0 +1,30 @@
+tile.pneumaticTransducer.lv.name=Low Voltage Pneumatic Transducer
+tile.pneumaticTransducer.mv.name=Medium Voltage Pneumatic Transducer
+tile.pneumaticTransducer.hv.name=High Voltage Pneumatic Transducer
+tile.pneumaticTransducer.ev.name=Extreme Voltage Pneumatic Transducer
+
+tile.electricEngine.lv.name=Low Voltage Electric Engine
+tile.electricEngine.mv.name=Medium Voltage Electric Engine
+tile.electricEngine.hv.name=High Voltage Electric Engine
+tile.electricEngine.ev.name=Extreme Voltage Electric Engine
+
+itemGroup.Transducers=Transducers
+
+item.customPipe.HighThroughputPowerPipe.name=High Throughput Wooden Kinesis Pipe
+
+trigger.transducers.electricengine.heat.cold=Low temperature
+trigger.transducers.electricengine.heat.warm=Moderate temperature
+trigger.transducers.electricengine.heat.hot=High temperature
+trigger.transducers.electricengine.heat.overheat=Very high temperature
+
+tip.pneumaticTransducer.lv=Accepts max 12,8 MJ and outputs 32 EU/t
+tip.pneumaticTransducer.mv=Accepts max 51,2 MJ and outputs 128 EU/t
+tip.pneumaticTransducer.hv=Accepts max 204,8 MJ and outputs 512 EU/t
+tip.pneumaticTransducer.ev=Accepts max 819,2 MJ and outputs 2048 EU/t
+
+tip.electricEngine.lv=Accepts up to 32 EU/t and outputs 12,8 MJ
+tip.electricEngine.mv=Accepts up to 128 EU/t and outputs 51,2 MJ
+tip.electricEngine.hv=Accepts up to 512 EU/t and outputs 204,8 MJ
+tip.electricEngine.ev=Accepts up to 2048 EU/t and outputs 819,2 MJ
+
+tip.customPipe.HighThroughputPowerPipe=Power input pipe, max input 4096 MJ/t

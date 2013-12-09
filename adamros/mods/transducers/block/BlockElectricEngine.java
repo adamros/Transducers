@@ -1,6 +1,7 @@
 package adamros.mods.transducers.block;
 
 import java.util.List;
+import java.util.Random;
 
 import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.common.FMLLog;
@@ -96,6 +97,11 @@ public class BlockElectricEngine extends BlockContainer
         }
 
         return false;
+    }
+
+    @Override
+    public void randomDisplayTick(World world, int i, int j, int k, Random random)
+    {
     }
 
     @Override
