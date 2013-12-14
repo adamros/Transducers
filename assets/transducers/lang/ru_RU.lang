@@ -1,1 +1,30 @@
-item.customPipe.HighThroughputPowerPipe.name=Сверхпроводящая труба
+tile.pneumaticTransducer.lv.name=Пневматической преобразователь низкого напряжения
+tile.pneumaticTransducer.mv.name=Пневматической преобразователь среднего напряжения
+tile.pneumaticTransducer.hv.name=Пневматический преобразователь высокого напряжения
+tile.pneumaticTransducer.ev.name=Пневматический преобразователь сверхвысокого напряжения
+
+tile.electricEngine.lv.name=Электрический двигатель низкого напряжения
+tile.electricEngine.mv.name=Электрический двигатель среднего напряжения
+tile.electricEngine.hv.name=Электрический двигатель высокого напряжения
+tile.electricEngine.ev.name=Электрический двигатель сверхвысокого напряжения
+
+itemGroup.Transducers=Преобразователи
+
+item.customPipe.HighThroughputPowerPipe.name=Деревянная сверхпроводящая труба
+
+trigger.transducers.electricengine.heat.cold=Низкая температура
+trigger.transducers.electricengine.heat.warm=Средняя температура
+trigger.transducers.electricengine.heat.hot=Высокая температура
+trigger.transducers.electricengine.heat.overheat=Критическая температура
+
+tip.pneumaticTransducer.lv=Принимает до 12,8 MJ и выдает 32 EU/t
+tip.pneumaticTransducer.mv=Принимает до 51,2 MJ и выдает 128 EU/t
+tip.pneumaticTransducer.hv=Принимает до 204,8 MJ и выдает 512 EU/t
+tip.pneumaticTransducer.ev=Принимает до 819,2 MJ и выдает 2048 EU/t
+
+tip.electricEngine.lv=Принимает до 32 EU/t и выдает 12,8 MJ
+tip.electricEngine.mv=Принимает до 128 EU/t и выдает 51,2 MJ
+tip.electricEngine.hv=Принимает до 512 EU/t и выдает 204,8 MJ
+tip.electricEngine.ev=Принимает до 2048 EU/t и выдает 819,2 MJ
+
+tip.customPipe.HighThroughputPowerPipe=Проводящая электрическая труба на 4096 MJ/t
