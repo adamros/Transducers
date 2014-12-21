@@ -54,6 +54,12 @@ public class CommonProxy
                                                                                                   });
         // MV Electric Engine
         GameRegistry.addRecipe(new ItemStack(Transducers.blockElectricEngine, 1, 1), new Object[] { " A ", " Z ", "XYX",
+                               'X', new ItemStack(Items.getItem("advBattery").getItem(), 1, 27),
+                               'Y', new ItemStack(Transducers.instance.blockElectricEngine, 1, 0),
+                               'Z', Items.getItem("transformerUpgrade"),
+                               'A', GregTech_API.getGregTechItem(3, 1, 22)
+                                                                                                  });
+        GameRegistry.addRecipe(new ItemStack(Transducers.blockElectricEngine, 1, 1), new Object[] { " A ", " Z ", "XYX",
                                'X', Items.getItem("advBattery"),
                                'Y', new ItemStack(Transducers.instance.blockElectricEngine, 1, 0),
                                'Z', Items.getItem("transformerUpgrade"),
@@ -136,6 +142,12 @@ public class CommonProxy
                                'A', Items.getItem("elemotor")
                                                                                                   });
         // MV Electric Engine
+        GameRegistry.addRecipe(new ItemStack(Transducers.blockElectricEngine, 1, 1), new Object[] { " A ", " Z ", "XYX",
+                               'X', new ItemStack(Items.getItem("advBattery").getItem(), 1, 27),
+                               'Y', new ItemStack(Transducers.instance.blockElectricEngine, 1, 0),
+                               'Z', Items.getItem("transformerUpgrade"),
+                               'A', Items.getItem("electronicCircuit")
+                                                                                                  });
         GameRegistry.addRecipe(new ItemStack(Transducers.blockElectricEngine, 1, 1), new Object[] { " A ", " Z ", "XYX",
                                'X', Items.getItem("advBattery"),
                                'Y', new ItemStack(Transducers.instance.blockElectricEngine, 1, 0),
