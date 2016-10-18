@@ -188,7 +188,7 @@ public class TileElectricEngine extends AbstractElectricEngine /*implements IInv
                 break;
 
             case 3:
-                tmp = 2048;
+                tmp = 2048; // I have no clue what this should be...
                 break;
 
             default:
